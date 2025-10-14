@@ -1,22 +1,61 @@
-import './App.css'
-import Lista from './components/Lista'
+import { useState } from 'react';
+import Lista from './components/Lista';
+import './App.css';
+ 
+function App() {
+  const [itens, setItens] = useState(['Rudies Flacko', 'Dessiiik', 'Diviza', 'BigRush', 'OffShino', 'M Dep', 'Derek', 'Pluglip', 'Virgingod', 'Neckklace']);
+  const [novoItem, setNovoItem] = useState('');
+  const [buscarItem, setBuscarItem ] = useState('')
+ 
+ 
+  function adicionarItem() {
+    if (novoItem.trim() !== '') {
+      setItens([...itens, novoItem]);
+      setNovoItem('');
+    }
 
-function App(){
+  }
+ 
+  function excluirItem(index) {
+ 
+    const novosItens = itens.filter((_, i) => i !== index);
+    setItens(novosItens);
+ 
+  }
 
-const meusItens =['React', 'Angular', 'Typescript']
+    function busca() {
+    return itens.filter(item =>
+    item.toLowerCase().includes(buscarItem.toLowerCase())
+    );
+  }
 
-return(
-  <div className='App'>
-    <h1>REDERIZÇÃO DE LISTA</h1>
-    <h3>Lista das coisas</h3>
-    <p>React</p>
-    <p>Angular</p>
-    <p>Typescript</p>
-    <Lista itens = {meusItens}/>
-     <Lista itens = {[]}/>
-  </div>
-)
+ 
+  return (
+    <div className='App'>
+      <h1>Lista</h1>
+ 
+      <input
+        type="text"
+        placeholder='Digite um novo item'
+        className='campo'
+        value={novoItem}
+        onChange={(e) => setNovoItem(e.target.value)}
+ 
+      />
+      <button className='adicionar' onClick={adicionarItem}>Adicionar</button>
 
+        <input
+        type="text"
+        placeholder="Buscar item"
+        className='campo'
+        value={busca}
+        onChange={(e) => setBuscarItem(e.target.value)}
+      />
+  
+ 
+         <Lista itens={itens} busca={busca} onExcluir={excluirItem} />
+    </div>
+  )
 }
-
-export default App;
+ 
+export default App
