@@ -1,40 +1,19 @@
-import { useState } from "react";
- 
-function Lista({ itens, busca, onExcluir }) {
- 
-    return (
-        <>
 
-        
+ function Lista({ itens, onExcluir }) {
+  if (itens.length === 0) return <p>Nenhum item encontrado.</p>;
 
-        <div className="lista">
-            <h2>Lista de Coisas: </h2>
-
-            
- 
-            {itens.length > 0 ? (
-                
-                itens.map((item, index) => (
-                <p key={index}>
-                {item}{' '}
-
-                
- 
-                <button onClick={() => onExcluir(index)}>
-                 Excluir
-                </button>
-                 </p>
-
-                ))
-            ) : (
-                <p>Não existe</p>
-            )}
- 
-       </div>
-
-        </>
-    )
+  return (
+    <ul>
+      {itens.map((item, index) => (
+        <li key={index}>
+          {item}
+          <button onClick={() => onExcluir(index)}>
+            Excluir
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
 }
- 
-export default Lista
- 
+
+export default Lista;
